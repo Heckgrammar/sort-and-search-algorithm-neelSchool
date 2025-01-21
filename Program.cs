@@ -11,72 +11,73 @@ namespace compare_algorithm
         }
         static int[] CreateArray(int size, int min, int max)
         {
-         Random r = new Random();
-         int[] a = new int[size];
-         for (int i = 0; i < a.Length; ++i)
-         {
-          a[i] = r.Next(min, max);
-         }
+            Random r = new Random();
+            int[] a = new int[size];
+            for (int i = 0; i < a.Length; ++i)
+            {
+                a[i] = r.Next(min, max);
+            }
+            return a;
         }
         static void menu()
         {
-         Console.WriteLine("Enter 1 for linear search");
-         Console.WriteLine("Enter 2 for binary search");
-         Console.WriteLine("Enter 3 for bubble sort");
-         Console.WriteLine("Enter 4 for merge sort");
-         Console.WriteLine("Enter 9 for quit");
-         int opt = Convert.ToInt32(Console.ReadLine());
-         Console.WriteLine("Enter size of the array");
-         int size = Convert.ToInt32(Console.ReadLine());
-         Console.WriteLine("Enter minimum value for array");
-         int min = Convert.ToInt32(Console.ReadLine());
-         Console.WriteLine("Enter maximum value for array");
-         int max = Convert.ToInt32(Console.ReadLine());
-         int[] b = CreateArray(size, min, max);
-         if (opt == 1)
-         {
-          Console.WriteLine("Enter value to find");
-          int val = Convert.ToInt32(Console.ReadLine());
-          LinearSearch(b, val);
-         }
-         else if (opt == 2)
-         {
-          Console.WriteLine("Enter value to find");
-          int val = Convert.ToInt32(Console.ReadLine());
-          BinarySearch(b, val);
-         }
-         else if (opt == 3)
-         {
-          BubbleSort(b);
-         }
-         else if (opt == 4)
-         {
-          MergeSort(b);
-         }
-         else 
-         {
-          System.Environment.Exit(1);
-         }
+            Console.WriteLine("Enter 1 for linear search");
+            Console.WriteLine("Enter 2 for binary search");
+            Console.WriteLine("Enter 3 for bubble sort");
+            Console.WriteLine("Enter 4 for merge sort");
+            Console.WriteLine("Enter 9 for quit");
+            int opt = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter size of the array");
+            int size = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter minimum value for array");
+            int min = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter maximum value for array");
+            int max = Convert.ToInt32(Console.ReadLine());
+            int[] b = CreateArray(size, min, max);
+            if (opt == 1)
+            {
+                Console.WriteLine("Enter value to find");
+                int val = Convert.ToInt32(Console.ReadLine());
+                LinearSearch(b, val);
+            }
+            else if (opt == 2)
+            {
+                Console.WriteLine("Enter value to find");
+                int val = Convert.ToInt32(Console.ReadLine());
+                BinarySearch(b, val);
+            }
+            else if (opt == 3)
+            {
+                BubbleSort(b);
+            }
+            else if (opt == 4)
+            {
+                MergeSortRecursive(b, 0, b.Length - 1);
+            }
+            else
+            {
+                System.Environment.Exit(1);
+            }
         }
         static void BubbleSort(int[] a)
         {
-        int temp;
-        bool swaps;
-        do 
-        {
-            swaps = false;
-            for (int i = 0; i <= a.Length - 2; ++i)
+            int temp;
+            bool swaps;
+            do
             {
-                if (a[i] > a[i+1])
+                swaps = false;
+                for (int i = 0; i <= a.Length - 2; ++i)
                 {
-                    temp = a[i+1];
-                    a[i+1] = a[i];
-                    a[i] = temp;
-                    swaps = true;
+                    if (a[i] > a[i + 1])
+                    {
+                        temp = a[i + 1];
+                        a[i + 1] = a[i];
+                        a[i] = temp;
+                        swaps = true;
+                    }
                 }
-            }
-        } while (swaps);
-        
+            } while (swaps);
+
         }
         static void Merge(int[] a, int low, int mid, int high)
         {
@@ -134,20 +135,21 @@ namespace compare_algorithm
         }
         static bool LinearSearch(int[] a, int numToFind)
         {
-         bool found = false;
-         for (int i = 0; i < a.Length; ++i)
-         {
-            if (a[i] == numToFind)
+            bool found = false;
+            for (int i = 0; i < a.Length; ++i)
             {
-                found = true;
-                Console.WriteLine($"Your number was found at index {i}");
-                break;
+                if (a[i] == numToFind)
+                {
+                    found = true;
+                    Console.WriteLine($"Your number was found at index {i}");
+                    break;
+                }
             }
-         }
-         if (found == false)
-         {
-            Console.WriteLine("Your item was not found.");
-         }
+            if (found == false)
+            {
+                Console.WriteLine("Your item was not found.");
+            }
+            return found;
         }
         static bool BinarySearch(int[] a, int numToFind)
         {
@@ -156,28 +158,30 @@ namespace compare_algorithm
             int lb = 0;
             while (lb < ub)
             {
-             int mp = (lb+ub)/2;
-             if (a[mp] == numToFind)
-             {
-                Console.WriteLine($"Item found at {mp}.");
-                found = true;
-             }
-             else if (a[mp] < numToFind)
-             {
-                lb = mp+1;
-                mp = (lb+ub)/2;;
-             }
-             else if (a[mp] > numToFind)
-             {
-                ub = mp-1;
-                mp = (lb+ub)/2;;
-             }
-             else
-             {
-                Console.WriteLine($"Item not found.");
-             }
+                int mp = (lb + ub) / 2;
+                if (a[mp] == numToFind)
+                {
+                    Console.WriteLine($"Item found at {mp}.");
+                    found = true;
+                }
+                else if (a[mp] < numToFind)
+                {
+                    lb = mp + 1;
+                    mp = (lb + ub) / 2; ;
+                }
+                else if (a[mp] > numToFind)
+                {
+                    ub = mp - 1;
+                    mp = (lb + ub) / 2; ;
+                }
+                else
+                {
+                    Console.WriteLine($"Item not found.");
+                }
             }
+            return found;
+
         }
-            
+
     }
 }
