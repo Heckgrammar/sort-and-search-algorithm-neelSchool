@@ -6,7 +6,6 @@ namespace compare_algorithm
     {
         static void Main(string[] args)
         {
-            Stopwatch sw = new Stopwatch();
             menu();
         }
         static int[] CreateArray(int size, int min, int max)
@@ -21,12 +20,17 @@ namespace compare_algorithm
         }
         static void menu()
         {
+            Stopwatch sw = new Stopwatch();
             Console.WriteLine("Enter 1 for linear search");
             Console.WriteLine("Enter 2 for binary search");
             Console.WriteLine("Enter 3 for bubble sort");
             Console.WriteLine("Enter 4 for merge sort");
             Console.WriteLine("Enter 9 for quit");
             int opt = Convert.ToInt32(Console.ReadLine());
+            if (opt > 4)
+            { 
+             System.Environment.Exit(1);
+            }
             Console.WriteLine("Enter size of the array");
             int size = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Enter minimum value for array");
@@ -34,30 +38,33 @@ namespace compare_algorithm
             Console.WriteLine("Enter maximum value for array");
             int max = Convert.ToInt32(Console.ReadLine());
             int[] b = CreateArray(size, min, max);
+
             if (opt == 1)
             {
                 Console.WriteLine("Enter value to find");
                 int val = Convert.ToInt32(Console.ReadLine());
+                sw.Start();
                 LinearSearch(b, val);
             }
             else if (opt == 2)
             {
                 Console.WriteLine("Enter value to find");
                 int val = Convert.ToInt32(Console.ReadLine());
+                sw.Start();
                 BinarySearch(b, val);
             }
             else if (opt == 3)
             {
+                sw.Start();
                 BubbleSort(b);
             }
             else if (opt == 4)
             {
+                sw.Start();
                 MergeSortRecursive(b, 0, b.Length - 1);
             }
-            else
-            {
-                System.Environment.Exit(1);
-            }
+            sw.Stop(); 
+            Console.WriteLine(sw.Elapsed.ToString());
         }
         static void BubbleSort(int[] a)
         {
@@ -172,7 +179,7 @@ namespace compare_algorithm
                 else if (a[mp] > numToFind)
                 {
                     ub = mp - 1;
-                    mp = (lb + ub) / 2; ;
+                    mp = (lb + ub) / 2;
                 }
                 else
                 {
